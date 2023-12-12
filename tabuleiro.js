@@ -6,7 +6,7 @@ function criarCasas(tabuleiro, posicao) {
     for (let i = 0; i < 3; i++) {
       const placar = document.createElement('span');
       placar.className = 'placar';
-      placar.id = `placar-${i}`;
+      placar.id = `placar-${posicao}-${i}`;
 
       tabuleiro.appendChild(placar);
       placar.innerText = 0;
@@ -16,7 +16,7 @@ function criarCasas(tabuleiro, posicao) {
     for (let i = 0; i < 9; i++) {
       const casa = document.createElement('div');
       casa.className = 'casa';
-      casa.id = `casa-${i}`;
+      casa.id = `casa-${posicao}-${i}`;
 
       tabuleiro.appendChild(casa);
     }
@@ -25,7 +25,7 @@ function criarCasas(tabuleiro, posicao) {
     for (let i = 0; i < 3; i++) {
       const placar = document.createElement('span');
       placar.className = 'placar';
-      placar.id = `placar-${i}`;
+      placar.id = `placar-${posicao}-${i}`;
 
       tabuleiro.appendChild(placar);
       placar.innerText = 0;
