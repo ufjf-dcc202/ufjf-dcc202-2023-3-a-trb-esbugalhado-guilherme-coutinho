@@ -18,8 +18,14 @@ const casasOponente = [document.getElementById('casa-0-0'), document.getElementB
 const displayOponente = document.getElementById('display-oponente');
 const displayJogador = document.getElementById('display-jogador');
 
+let aux = 0;
+let casasVaziasOponente = [];
 let numeroAleatorio = 0;
 let turno = 1;
+
+function delay(tempo) {
+    return new Promise(resolve => setTimeout(resolve, tempo));
+  }
 
 function gerarNumeroAleatorio() {
     return Math.floor(Math.random() * 6) + 1;
@@ -85,7 +91,48 @@ tabuleiroJogador.addEventListener('click', (event) => {
       atualizaTabuleiro();
       numeroAleatorio = 0;
       displayJogador.innerText = numeroAleatorio;
+
+      if(verificaJogo()) {
+        console.log("Fim de Jogo");
+      } else {
+        turno = 0;
+        turnoOponente();
+      }
 }});
+
+
+function turnoOponente() {
+    delay(500).then(() => {
+        numeroAleatorio = gerarNumeroAleatorio();
+        displayOponente.innerText = numeroAleatorio;
+
+        delay(2000).then(() => {
+
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (colunasOponente[i][j] === 0) {
+                        casasVaziasOponente.push([i, j]);
+                    }
+                }
+            }
+
+            aux = Math.floor(Math.random() * (casasVaziasOponente.length - 1));
+            //colunasOponente[casasVazias[aux[0]]][casasVazias[aux[1]]] = numeroAleatorio;
+            console.log(casasVaziasOponente);
+            console.log(aux);
+            console.log(casasVaziasOponente[aux]);
+            colunasOponente[casasVaziasOponente[aux][1]][casasVaziasOponente[aux][0]] = numeroAleatorio;
+            console.log(colunasOponente)
+
+            casasVaziasOponente.splice(0, casasVaziasOponente.length);
+            numeroAleatorio = 0;
+            displayOponente.innerText = numeroAleatorio;
+
+            atualizaTabuleiro();
+            turno = 1;
+        })
+    })
+}
 
 
 function atualizaTabuleiro() {
@@ -119,10 +166,6 @@ function verificaJogo() {
     }
 }
 
-function turnoJogador() {
-
-}
-
 
 const colunasJogador = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 const colunasOponente = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
@@ -130,7 +173,7 @@ const colunasOponente = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 atualizaTabuleiro();
 
 
-document.onload = function jogo() {
+/* document.onload = function jogo() {
 
     while (true) {
         if (verificaJogo()) {
@@ -144,4 +187,4 @@ document.onload = function jogo() {
             turnoJogador();
         }
     }
-}
+} */
