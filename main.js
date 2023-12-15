@@ -95,6 +95,7 @@ tabuleiroJogador.addEventListener('click', (event) => {
       if(verificaJogo()) {
         console.log("Fim de Jogo");
       } else {
+        console.log(colunasJogador);
         turno = 0;
         turnoOponente();
       }
@@ -111,7 +112,7 @@ function turnoOponente() {
             for (let i = 0; i < 3; i++) {
                 for (let j = 0; j < 3; j++) {
                     if (colunasOponente[i][j] === 0) {
-                        casasVaziasOponente.push([i, j]);
+                        casasVaziasOponente.push([j, i]);
                     }
                 }
             }
