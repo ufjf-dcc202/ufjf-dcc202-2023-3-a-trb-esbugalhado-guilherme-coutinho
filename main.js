@@ -18,7 +18,12 @@ const casasOponente = [document.getElementById('casa-0-0'), document.getElementB
 const displayOponente = document.getElementById('display-oponente');
 const displayJogador = document.getElementById('display-jogador');
 
+const pontuacaoOponente = [document.getElementById('placar-0-0'), document.getElementById('placar-0-1'), document.getElementById('placar-0-2')];
+const pontuacaoJogador = [document.getElementById('placar-1-0'), document.getElementById('placar-1-1'), document.getElementById('placar-1-2')];
+
 let aux = 0;
+let aux2 = 0;
+let aux3 = 0;
 let casasVaziasOponente = [];
 let numeroAleatorio = 0;
 let turno = 1;
@@ -97,6 +102,7 @@ tabuleiroJogador.addEventListener('click', (event) => {
       } else {
         console.log(colunasJogador);
         turno = 0;
+        atualizaPlacar();
         turnoOponente();
       }
 }});
@@ -123,13 +129,14 @@ function turnoOponente() {
             console.log(aux);
             console.log(casasVaziasOponente[aux]);
             colunasOponente[casasVaziasOponente[aux][1]][casasVaziasOponente[aux][0]] = numeroAleatorio;
-            console.log(colunasOponente)
+            console.log(colunasOponente);
 
             casasVaziasOponente.splice(0, casasVaziasOponente.length);
             numeroAleatorio = 0;
             displayOponente.innerText = numeroAleatorio;
 
             atualizaTabuleiro();
+            atualizaPlacar();
             turno = 1;
         })
     })
@@ -167,25 +174,46 @@ function verificaJogo() {
     }
 }
 
+function atualizaPlacar() {
+    for(let i = 0; i < 3; i++) {
+        for(let j = 0; j < 3; j++) {
+            if(colunasOponente[i][j] === 0) {
+                continue;
+            } else {
+                aux2 = colunasOponente[i][j];
+                for(let k = 0; k < 3; k++) {
+                    if(colunasOponente[i][k] === aux2) {
+                        aux3++;
+                    }
+                }
+                placarOponente[i] += aux2 * aux3;
+            }
+            aux2 = 0;
+            aux3 = 0;
+
+            if(colunasJogador[i][j] === 0) {
+                continue;
+            } else {
+                aux2 = colunasJogador[i][j];
+                for(let k = 0; k < 3; k++) {
+                    if(colunasJogador[i][k] === aux2) {
+                        aux3++;
+                    }
+                }
+                placarJogador[i] += aux2 * aux3;
+            }
+            aux2 = 0;
+            aux3 = 0;
+        }
+
+    }
+}
+
 
 const colunasJogador = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 const colunasOponente = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 
+const placarJogador = [0, 0, 0];
+const placarOponente = [0, 0, 0];
+
 atualizaTabuleiro();
-
-
-/* document.onload = function jogo() {
-
-    while (true) {
-        if (verificaJogo()) {
-            break;
-        }
-
-        if (turno === 0) {
-            turnoOponente();
-        }
-        else {
-            turnoJogador();
-        }
-    }
-} */
