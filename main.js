@@ -100,9 +100,9 @@ tabuleiroJogador.addEventListener('click', (event) => {
       if(verificaJogo()) {
         console.log("Fim de Jogo");
       } else {
-        console.log(colunasJogador);
         turno = 0;
         atualizaPlacar();
+        atualizaTabuleiro();
         turnoOponente();
       }
 }});
@@ -125,18 +125,16 @@ function turnoOponente() {
 
             aux = Math.floor(Math.random() * (casasVaziasOponente.length - 1));
             //colunasOponente[casasVazias[aux[0]]][casasVazias[aux[1]]] = numeroAleatorio;
-            console.log(casasVaziasOponente);
-            console.log(aux);
-            console.log(casasVaziasOponente[aux]);
             colunasOponente[casasVaziasOponente[aux][1]][casasVaziasOponente[aux][0]] = numeroAleatorio;
-            console.log(colunasOponente);
+
 
             casasVaziasOponente.splice(0, casasVaziasOponente.length);
             numeroAleatorio = 0;
             displayOponente.innerText = numeroAleatorio;
 
-            atualizaTabuleiro();
             atualizaPlacar();
+            atualizaTabuleiro();
+            
             turno = 1;
         })
     })
@@ -149,7 +147,10 @@ function atualizaTabuleiro() {
             casasJogador[j * 3 + i].innerText = colunasJogador[i][j];
             casasOponente[j * 3 + i].innerText = colunasOponente[i][j];
         }
+        pontuacaoOponente[i].innerText = placarOponente[i];
+        pontuacaoJogador[i].innerText = placarJogador[i];
     }
+    
 
 }
 
@@ -175,6 +176,10 @@ function verificaJogo() {
 }
 
 function atualizaPlacar() {
+
+    placarJogador = [0, 0, 0];
+    placarOponente = [0, 0, 0];
+
     for(let i = 0; i < 3; i++) {
         for(let j = 0; j < 3; j++) {
             if(colunasOponente[i][j] === 0) {
@@ -207,13 +212,15 @@ function atualizaPlacar() {
         }
 
     }
+    console.log(placarJogador);
+    console.log(placarOponente);
 }
 
 
-const colunasJogador = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
-const colunasOponente = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+let colunasJogador = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+let colunasOponente = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 
-const placarJogador = [0, 0, 0];
-const placarOponente = [0, 0, 0];
+let placarJogador = [0, 0, 0];
+let placarOponente = [0, 0, 0];
 
 atualizaTabuleiro();
