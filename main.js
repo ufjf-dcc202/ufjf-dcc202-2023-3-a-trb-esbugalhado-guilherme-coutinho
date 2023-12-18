@@ -7,6 +7,12 @@ const tabuleiroJogador = document.getElementById('tabuleiro-jogador');
 criarCasas(tabuleiroOponente, 0);
 criarCasas(tabuleiroJogador, 1);
 
+let colunasJogador = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+let colunasOponente = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+
+let placarJogador = [0, 0, 0];
+let placarOponente = [0, 0, 0];
+
 const casasJogador = [document.getElementById('casa-1-0'), document.getElementById('casa-1-1'), document.getElementById('casa-1-2'), 
                       document.getElementById('casa-1-3'), document.getElementById('casa-1-4'), document.getElementById('casa-1-5'), 
                       document.getElementById('casa-1-6'), document.getElementById('casa-1-7'), document.getElementById('casa-1-8'), ]
@@ -45,11 +51,11 @@ document.getElementById('acao-jogador').addEventListener('click', () => {
 
 tabuleiroJogador.addEventListener('click', (event) => {
     const casaClicada = event.target;
-    
+    let coluna = 0;
     if (casaClicada.classList.contains('casa')) {
       //casaClicada.innerText = numeroAleatorio;
       if (casaClicada.id === 'casa-1-0' || casaClicada.id === 'casa-1-3' || casaClicada.id === 'casa-1-6') {
-        let coluna = 0;
+        coluna = 0;
         if (casaClicada.id === 'casa-1-0') {
             let linha = 0;
             colunasJogador[coluna][linha] = numeroAleatorio;
@@ -62,9 +68,14 @@ tabuleiroJogador.addEventListener('click', (event) => {
             let linha = 2;
             colunasJogador[coluna][linha] = numeroAleatorio;
         }
+        for(let k = 0; k < 3; k++) {
+            if(colunasOponente[coluna, k] === numeroAleatorio) {
+                colunasOponente[coluna, k] = 0;
+            }
+        }
       } 
       else if(casaClicada.id === 'casa-1-1' || casaClicada.id === 'casa-1-4' || casaClicada.id === 'casa-1-7') {
-        let coluna = 1;
+        coluna = 1;
         if (casaClicada.id === 'casa-1-1') {
             let linha = 0;
             colunasJogador[coluna][linha] = numeroAleatorio;
@@ -79,7 +90,7 @@ tabuleiroJogador.addEventListener('click', (event) => {
         }
       }
       else if(casaClicada.id === 'casa-1-2' || casaClicada.id === 'casa-1-5' || casaClicada.id === 'casa-1-8') {
-        let coluna = 2;
+        coluna = 2;
         if (casaClicada.id === 'casa-1-2') {
             let linha = 0;
             colunasJogador[coluna][linha] = numeroAleatorio;
@@ -92,19 +103,33 @@ tabuleiroJogador.addEventListener('click', (event) => {
             let linha = 2;
             colunasJogador[coluna][linha] = numeroAleatorio;
         }
+
+    }
+
+    atualizaTabuleiro();
+
+      for(let k = 0; k < 3; k++) {
+        if(colunasOponente[coluna][k] === numeroAleatorio) {
+            colunasOponente[coluna][k] = 0;
+        }
       }
+
       atualizaTabuleiro();
+
       numeroAleatorio = 0;
       displayJogador.innerText = numeroAleatorio;
+
+      
 
       if(verificaJogo()) {
         console.log("Fim de Jogo");
       } else {
         turno = 0;
-        atualizaPlacar();
         atualizaTabuleiro();
         turnoOponente();
       }
+
+
 }});
 
 
@@ -127,12 +152,16 @@ function turnoOponente() {
             //colunasOponente[casasVazias[aux[0]]][casasVazias[aux[1]]] = numeroAleatorio;
             colunasOponente[casasVaziasOponente[aux][1]][casasVaziasOponente[aux][0]] = numeroAleatorio;
 
+            for(let k = 0; k < 3; k++) {
+                if(colunasJogador[casasVaziasOponente[aux][1]][k] === numeroAleatorio) {
+                    colunasJogador[casasVaziasOponente[aux][1]][k] = 0;
+                }
+              }
 
             casasVaziasOponente.splice(0, casasVaziasOponente.length);
             numeroAleatorio = 0;
             displayOponente.innerText = numeroAleatorio;
 
-            atualizaPlacar();
             atualizaTabuleiro();
             
             turno = 1;
@@ -147,6 +176,7 @@ function atualizaTabuleiro() {
             casasJogador[j * 3 + i].innerText = colunasJogador[i][j];
             casasOponente[j * 3 + i].innerText = colunasOponente[i][j];
         }
+        atualizaPlacar();
         pontuacaoOponente[i].innerText = placarOponente[i];
         pontuacaoJogador[i].innerText = placarJogador[i];
     }
@@ -191,36 +221,36 @@ function atualizaPlacar() {
                         aux3++;
                     }
                 }
-                placarOponente[i] += aux2 * aux3;
+                
             }
+            placarOponente[i] += aux2 * aux3;
+
             aux2 = 0;
             aux3 = 0;
 
             if(colunasJogador[i][j] === 0) {
+                console.log("falhou");
                 continue;
             } else {
+                console.log("deu certo");
                 aux2 = colunasJogador[i][j];
                 for(let k = 0; k < 3; k++) {
                     if(colunasJogador[i][k] === aux2) {
                         aux3++;
                     }
                 }
-                placarJogador[i] += aux2 * aux3;
+                
             }
+            placarJogador[i] += aux2 * aux3;
+
             aux2 = 0;
             aux3 = 0;
         }
 
     }
-    console.log(placarJogador);
-    console.log(placarOponente);
 }
 
 
-let colunasJogador = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
-let colunasOponente = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 
-let placarJogador = [0, 0, 0];
-let placarOponente = [0, 0, 0];
 
 atualizaTabuleiro();
