@@ -126,6 +126,7 @@ tabuleiroJogador.addEventListener('click', (event) => {
       } else {
         turno = 0;
         atualizaTabuleiro();
+        console.log(placarJogador);
         turnoOponente();
       }
 
@@ -227,11 +228,13 @@ function atualizaPlacar() {
                 }
                 
             }
-            placarOponente[i] += aux2 * aux3;
+        }
+        placarOponente[i] += aux2 * aux3;
 
-            aux2 = 0;
-            aux3 = 0;
+        aux2 = 0;
+        aux3 = 0;
 
+        for(let j = 0; j < 3; j++) {
             if(colunasJogador[i][j] === 0) {
                 continue;
             } else {
@@ -243,11 +246,12 @@ function atualizaPlacar() {
                 }
                 
             }
-            placarJogador[i] += aux2 * aux3;
-
-            aux2 = 0;
-            aux3 = 0;
         }
+        placarJogador[i] += aux2 * aux3;
+
+        aux2 = 0;
+        aux3 = 0;
+        
 
     }
 }
