@@ -126,7 +126,6 @@ tabuleiroJogador.addEventListener('click', (event) => {
       } else {
         turno = 0;
         atualizaTabuleiro();
-        console.log(placarJogador);
         turnoOponente();
       }
 
