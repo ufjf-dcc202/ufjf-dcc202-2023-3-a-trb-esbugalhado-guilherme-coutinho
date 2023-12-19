@@ -122,7 +122,7 @@ tabuleiroJogador.addEventListener('click', (event) => {
       
 
       if(verificaJogo()) {
-        console.log("Fim de Jogo");
+        window.location.href = "vitoria.html";
       } else {
         turno = 0;
         atualizaTabuleiro();
@@ -229,10 +229,8 @@ function atualizaPlacar() {
             aux3 = 0;
 
             if(colunasJogador[i][j] === 0) {
-                console.log("falhou");
                 continue;
             } else {
-                console.log("deu certo");
                 aux2 = colunasJogador[i][j];
                 for(let k = 0; k < 3; k++) {
                     if(colunasJogador[i][k] === aux2) {

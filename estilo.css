@@ -18,6 +18,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 20px;
+    font-size: 1.6rem;
 }
 
 .tabuleiro {
@@ -40,7 +41,7 @@ body {
   }
 
 .placar {
-  font-size: 1.5vw;
+  font-size: 1.5rem;
   color: #122620;
 }
 
@@ -52,6 +53,14 @@ body {
 #jogador {
   display: flex; 
   align-items: center;
+}
+
+#display-jogador {
+  font-size: 2rem;;
+}
+
+#display-oponente {
+  font-size: 2rem;;
 }
 
 .painel button {
