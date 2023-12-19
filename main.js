@@ -122,7 +122,7 @@ tabuleiroJogador.addEventListener('click', (event) => {
       
 
       if(verificaJogo()) {
-        window.location.href = "vitoria.html";
+        pass;
       } else {
         turno = 0;
         atualizaTabuleiro();
@@ -198,7 +198,11 @@ function verificaJogo() {
         }
     }
     if (verificaJogador=== true || verificaOponente === true) {
-        return true;
+        if(verificaJogador === true) {
+            window.location.href = "vitoria.html";
+        } else if(verificaOponente === true) {
+            window.location.href = "derrota.html";
+        }
     }
     else {
         return false;
