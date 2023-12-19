@@ -164,6 +164,7 @@ function turnoOponente() {
             displayOponente.innerText = numeroAleatorio;
 
             atualizaTabuleiro();
+            verificaJogo();
             
             turno = 1;
         })
