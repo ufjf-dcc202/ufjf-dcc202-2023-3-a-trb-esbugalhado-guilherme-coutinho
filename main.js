@@ -199,11 +199,18 @@ function verificaJogo() {
         }
     }
     if (verificaJogador=== true || verificaOponente === true) {
-        if(verificaJogador === true) {
+        let pontuacaoJogador = 0;
+        let pontuacaoOponente = 0;
+        for(let i = 0; i < 3; i++) {
+            pontuacaoJogador += placarJogador[i];
+            pontuacaoOponente += placarOponente[i];
+        }
+        if(pontuacaoJogador >= pontuacaoOponente) {
             window.location.href = "vitoria.html";
-        } else if(verificaOponente === true) {
+        } else {
             window.location.href = "derrota.html";
         }
+        
     }
     else {
         return false;
@@ -225,11 +232,14 @@ function atualizaPlacar() {
                     if(colunasOponente[i][k] === aux2) {
                         aux3++;
                     }
+                    
                 }
-                
+                placarOponente[i] += aux2 * aux3;
+                aux3 = 0;
             }
+            
         }
-        placarOponente[i] += aux2 * aux3;
+        
 
         aux2 = 0;
         aux3 = 0;
@@ -239,15 +249,19 @@ function atualizaPlacar() {
                 continue;
             } else {
                 aux2 = colunasJogador[i][j];
+                
                 for(let k = 0; k < 3; k++) {
                     if(colunasJogador[i][k] === aux2) {
-                        aux3++;
+                        aux3 += 1;
                     }
+            
                 }
+                placarJogador[i] += aux2 * aux3;
+                aux3 = 0;
                 
             }
+            
         }
-        placarJogador[i] += aux2 * aux3;
 
         aux2 = 0;
         aux3 = 0;
